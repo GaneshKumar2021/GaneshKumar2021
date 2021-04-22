@@ -1,0 +1,19 @@
+<template>
+  
+    <lightning-card title="Hello World Card">
+         <div class="slds-p-left_medium ; slds-p-right_medium ; slds-p-bottom_large">
+        <lightning-input 
+                         label="Name"
+                         value={inputText} 
+                         type="text" 
+                         name="Name"
+                         onchange={handleChange}
+                         ></lightning-input>
+    </div>
+    <div class="slds-p-left_medium">
+     Preview: <br/>
+    Hello, {inputText}!!
+    </div>
+    </lightning-card>
+  
+</template>
