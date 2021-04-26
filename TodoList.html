@@ -5,14 +5,19 @@
     <lightning-button-icon 
         icon-name="utility:sync" 
         slot="actions" 
+        title="refresh"
+        onclick={refreshTodoList}
         alternative-text="sync list"
     >
 </lightning-button-icon>
 <lightning-layout>
     <lightning-layout-item padding="around-small" size="12">
         <ul class="slds-has-dividers_around-space">
+           <template if:true={processing}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+               </template>
             <template for:each={taskArray} for:item="todoItem">
-            <li class="slds-item" key={todoItem.Id}>
+            <li class="slds-item" key={todoItem.id}>
                 <lightning-layout
                    vertical-align="center"
                    horizontal-align="spread"
@@ -24,7 +29,7 @@
                             <lightning-button-icon
                             icon-name="utility:delete"
                             title="delete"
-                            name={todoItem.Id}
+                            name={todoItem.id}
                             onclick={handleDeleteIcon}
                             alternative-text="delete-icon"
                         >
@@ -33,10 +38,11 @@
                 </lightning-layout>
             </li>
         </template>
+   
         </ul>
     </lightning-layout-item>
 </lightning-layout>
-
+<!-- this autocomplete attribute will remove the auto suggestion which shown us while tying task name in line no 55-->
     <p slot="footer">
         <lightning-layout pull-to-boundary="small">
             <lightning-layout-item padding="horizontal-small" flexibility="grow">
@@ -46,10 +52,12 @@
                     label="Task Name" 
                     variant="label-hidden"
                     value={addTask_var}
+                    autocomplete="off"    
                     onchange={handleTask}
                     required
                 >
             </lightning-input>
+          
             </lightning-layout-item>
             <lightning-layout-item padding="horizontal-small">
                 <lightning-button 
@@ -61,9 +69,12 @@
             </lightning-button>
             </lightning-layout-item>
         </lightning-layout>
-      
+       
     </p>
-
+    <div slot="footer" if:true={showError}>
+        <p style="color:red">Please fill out this field.</p>
+    </div>
 </lightning-card>
+
 </div>
 </template>
